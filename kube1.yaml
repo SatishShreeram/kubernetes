@@ -1,0 +1,85 @@
+#write a yaml structure for single pod kubectl.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: pod1
+      image: nginx:latest
+      ports:
+      - containerPort: 80
+
+#access the mypod
+kubectl port-forward pod/mypod 8080:80
+---
+#file for private docker registry credentials
+#we need to enter this line of code in cmd
+#---
+# kubectl create secret docker-registry secret-tiger-docker \
+#   --docker-email=tiger@acme.example \
+#   --docker-username=tiger \
+#   --docker-password=pass1234 \
+#   --docker-server=my-registry.example:5000
+
+
+kubectl create secret docker-registry mysecretcreds \
+  --docker-email=myemail@email.com \
+  --docker-username=myusername \
+  --docker-password=mypassword \
+
+
+#post creation of secret run the below command to validate.
+kubectl get secrets
+
+---
+#image pull secrets 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+  labels:
+    app: mydotnetapp
+spec:
+  containers:
+    - name: pod1
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+  imagePullSecrets:
+  - name: mysecretcreds #which is already created and verified using (kubectl get secrets077)
+
+
+---
+  #service 
+  #service is kind of resource in kubectl which will export the pods(container) port to external network.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mypod-service
+spec:
+  selector:
+    app: mydotnetapp # this app name should match to label name in metada
+  type: Nodeport
+  ports:
+  - port: 8080
+    target: 8080
+    nodePort: 8089
+
+#to see the services running
+kubectl get service
+---
+
+#create a two individual yaml file and apply each
+#now apply the yaml file first
+#then apply the service file 
+
+#OR
+
+#now club the two section of code in one yaml file apply it also works.
+
+#OR
+
+#keep two yaml file in one folder and apply it followed by dot(.)
