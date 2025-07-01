@@ -1,0 +1,55 @@
+#accessing the private image and creating the pod
+
+#create a secret
+kubectl create secret docker-registry mysecret1 `
+  --docker-server=<registry-server> `
+  --docker-username=<username> `
+  --docker-password=<password> `
+  --docker-email=<email>
+---
+#write the yaml code
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dotnetapp
+  labels:
+    app: dotnetapp
+spec:
+  containers:
+  - name: dotnetapp
+    image: iwaydevpos/dotnetapp
+    ports:
+     - containerPort: 8080
+  imagePullSecrets:
+  - name: mysecret1 #which is already created (to see that 'kubectl get secret')
+
+#Apply the YAML file to create the pod
+#kubectl apply -f my-pod.yaml
+
+---
+
+#writting the service yaml file
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+  labels:
+    app: dotnetapp
+spec:
+  selector:
+    app: dotnetapp
+  type: NodePort
+  ports:
+    -  port: 80
+       targetPort: 80
+       nodePort: 30335
+---
+#Apply the YAML file to create the service
+#kubectl apply -f service.yaml
+
+
+#OR
+
+#run both simultaniously
+#kubectl apply -f .
