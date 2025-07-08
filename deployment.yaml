@@ -20,4 +20,4 @@ spec:
 
 
 #to see the available deployments
-kubectl get deployments
+#kubectl get deployments
