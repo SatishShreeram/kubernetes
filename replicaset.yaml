@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 #replicaset
+=======
+   
+
+
+
+#replicaSet
+>>>>>>> cb7a9b9 (updated)
 #A ReplicaSet ensure that a specific number of identical pds are always running.  It monitors pods and start new ones if any are terminated.
 
 #write the replicaset yaml code
@@ -24,6 +32,7 @@ spec:
           ports:
             - containerPort: 8080
       imagePullSecrets:
+<<<<<<< HEAD
         - name: mysecret1 
 
 
@@ -43,3 +52,6 @@ kubectl describe replicaset dotnetapp-replicaset
 #to scale up the replicas
 #kubectl scale replicaset <name> --replicas <count>
 kubectl scale replicaset dotnetapp-replicaset --replicas 5
+=======
+        - name: mysecret1 
+>>>>>>> cb7a9b9 (updated)
