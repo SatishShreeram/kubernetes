@@ -20,4 +20,42 @@ spec:
 
 
 #to see the available deployments
+
 #kubectl get deployments
+
+kubectl get pods -l myapp
+#to see the available pods
+#kubectl get pods -l app=myapp
+
+kubectl scale deployment myapp-deployment --replica 3
+#to scale the deployment to 3 replicas
+
+#to see the updated deployment
+kubectl get deployments 
+
+#to see the updated pods
+kubectl get pods -l app=myapp
+
+#to describe the deployment
+kubectl describe deployment myapp-deployment
+
+#rolling update the deployment
+kubectl set image deployment/myapp-deployment myapp=nginx:1.19
+
+#to see the updated deployment
+kubectl get deployments
+
+#to see rolling update status
+kubectl rollout status deployment/myapp-deployment
+
+#to see the rollout history
+kubectl rollout history deployment/myapp-deployment
+
+#to rollback the deployment
+kubectl rollout undo deployment/myapp-deployment
+=======
+kubectl get deployments
+
+=======
+#kubectl get deployments
+
