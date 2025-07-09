@@ -20,7 +20,7 @@ spec:
 
 
 #to see the available deployments
-<<<<<<< HEAD
+
 #kubectl get deployments
 
 kubectl get pods -l myapp
@@ -55,4 +55,7 @@ kubectl rollout history deployment/myapp-deployment
 kubectl rollout undo deployment/myapp-deployment
 =======
 kubectl get deployments
->>>>>>> b53195a (new files)
+
+=======
+#kubectl get deployments
+
